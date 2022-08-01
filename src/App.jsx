@@ -20,6 +20,7 @@ function App() {
   }, []);
   return (
     <div className="container">
+      <h1>{turn}</h1>
       {isGameOver && (
         <h2 className="vertical-text">
           GAME OVER
