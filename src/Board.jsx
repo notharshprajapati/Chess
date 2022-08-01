@@ -23,7 +23,11 @@ const Board = ({ board }) => {
     <div className="board">
       {board.flat().map((piece, i) => (
         <div key={i} className="square">
-          <BoardSquare piece={piece} black={isBlack(i)} />
+          <BoardSquare
+            piece={piece}
+            black={isBlack(i)}
+            position={getPosition(i)}
+          />
         </div>
       ))}
     </div>
