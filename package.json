@@ -15,7 +15,7 @@
     "react-firebase-hooks": "^5.0.3",
     "react-router-dom": "^6.3.0",
     "react-scripts": "3.4.3",
-    "rxfire": "^6.0.3",
+    "rxfire": "^4.0.0",
     "rxjs": "^6.6.7"
   },
   "scripts": {
