@@ -4,12 +4,12 @@ import "firebase/compat/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDTWpT_jb0Rw_Hm0m3p2kyBqwESkQa5iAo",
-  authDomain: "chess-react-93919.firebaseapp.com",
-  projectId: "chess-react-93919",
-  storageBucket: "chess-react-93919.appspot.com",
-  messagingSenderId: "1081855248794",
-  appId: "1:1081855248794:web:a7756c6230a45446e2d223",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 // Initialize Firebase
