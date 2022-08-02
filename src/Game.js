@@ -1,16 +1,47 @@
 import * as Chess from "chess.js";
 import { BehaviorSubject } from "rxjs";
+import { map } from "rxjs/operators";
+import { auth } from "./firebase";
+import { fromDocRef } from "rxfire/firestore";
+
+let gameRef;
+let member;
 
 const chess = new Chess();
 
-export const gameSubject = new BehaviorSubject();
+export let gameSubject;
 
-export function initGame() {
-  const savedGame = localStorage.getItem("savedGame");
-  if (savedGame) {
-    chess.load(savedGame);
+export async function initGame(gameRefFb) {
+  const { currentUser } = auth;
+  if (gameRefFb) {
+    gameRef = gameRefFb;
+    const initialGame = await gameRefFb.get().then((doc) => doc.data());
+    if (!initialGame) {
+      return "notfound";
+    }
+    const creator = initialGame.members.find((m) => m.creator === true);
+    if (initialGame.status === "waiting" && creator.uid !== currentUser.uid) {
+      const currUser = {
+        uid: currentUser.uid,
+        name: localStorage.getItem("userName"),
+        piece: creator.piece === "w" ? "b" : "w",
+      };
+      const updatedMembers = [...initialGame.members, currUser];
+      await gameRefFb.update({ members: updatedMembers, status: "ready" });
+    } else if (
+      !initialGame.members.map((m) => m.uid).includes(currentUser.uid)
+    ) {
+      return "intruder";
+    }
+    chess.reset();
+  } else {
+    gameSubject = new BehaviorSubject();
+    const savedGame = localStorage.getItem("savedGame");
+    if (savedGame) {
+      chess.load(savedGame);
+    }
+    updateGame();
   }
-  updateGame();
 }
 
 export function resetGame() {
