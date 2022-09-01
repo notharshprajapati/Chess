@@ -1,3 +1,4 @@
-# React chess
+# ♟️ Chess 
 
-Starter code for the tutorial of building a chess application with react
+![Chess img](/Chess.png)
+
